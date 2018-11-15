@@ -80,5 +80,5 @@ theme: next
 deploy:
   type: git
   repository: git@github.com:DongCarzy/DongCarzy.github.io.git
-  branch: hexo
+  branch: master
 
