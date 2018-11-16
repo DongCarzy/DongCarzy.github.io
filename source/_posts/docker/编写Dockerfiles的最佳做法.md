@@ -83,13 +83,12 @@ RUN apt-get update && apt-get install -y \
 
 您可以为图像添加标签,` (空格)`, `"` 等字符需要转义
 
-```dockerfile
+```Dockerfile
 # Set one or more individual labels
 LABEL com.example.version="0.0.1-beta"
 LABEL vendor="ACME Incorporated"
 LABEL com.example.release-date="2015-02-12"
 LABEL com.example.version.is-production=""
-
 # Set multiple labels on one line
 LABEL com.example.version="0.0.1-beta" com.example.release-date="2015-02-12"
 
@@ -120,17 +119,17 @@ RUN apt-get update && apt-get install -y \
 apt-get update在RUN语句中单独使用会导致缓存问题和后续apt-get install指令失败,例如:
 
 ```dockerfile
- FROM ubuntu:14.04
-    RUN apt-get update
-    RUN apt-get install -y curl
+FROM ubuntu:14.04
+RUN apt-get update
+RUN apt-get install -y curl
 ```
 
 构建图像后，所有层都在Docker缓存中。假设你以后apt-get install通过添加额外的包来修改：
 
 ```dockerfile
- FROM ubuntu:14.04
-    RUN apt-get update
-    RUN apt-get install -y curl nginx
+FROM ubuntu:14.04
+RUN apt-get update
+RUN apt-get install -y curl nginx
 ```
 
 Docker将初始化和修改的指令看作是相同的，并重用先前步骤中的缓存。结果apt-get update是不执行，因为构建使用缓存的版本。因为apt-get update没有运行，你的构建可能会有一个过时的版本curl和nginx 包。
