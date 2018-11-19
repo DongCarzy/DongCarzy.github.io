@@ -2,16 +2,15 @@
 title: 锁表与解锁
 date: 2017-06-14 16:13:57
 type: post
-tags: 
-    - 锁表与解锁
+tags: 锁表与解锁
 categories: 数据库
 ---
 
 # 锁表与解锁
 
-## *ORACLE*
+## ORACLE
 
-* 查询锁表情况
+### 查询锁表情况
 
 ```sql
 SELECT object_name, machine, s.sid, s.serial#
@@ -20,20 +19,20 @@ WHERE l.object_id = o.object_id
 AND l.session_id = s.sid
 ```
 
-* 锁表
+### 锁表
 
 ```sql
 LOCK TABLE CAM_ACCOUNT_MST IN SHARE MODE ;
 ```
 
-* 解锁
+### 解锁
 
 ```sql
 alter system kill session 'sid, serial#'
 ALTER system kill session '17, 23019'
 ```
 
-* 查询锁表情况
+### 查询锁表情况2
 
 ```SQL
 SELECT l.session_id sid,
