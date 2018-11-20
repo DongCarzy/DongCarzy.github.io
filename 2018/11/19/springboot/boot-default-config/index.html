@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java,springboot,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Carzy" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="spring boot 默认配置项COMMON SPRING BOOT PROPERTIESThis sample file is provided as a guideline. Do NOT copy it in itsentirety to your own application.   CORE PROPERTIES  SPRING CONFIG (ConfigFileApplicatio">
+<meta name="keywords" content="java,springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring boot 默认配置项">
+<meta property="og:url" content="http://yoursite.com/2018/11/19/springboot/boot-default-config/index.html">
+<meta property="og:site_name" content="Carzy">
+<meta property="og:description" content="spring boot 默认配置项COMMON SPRING BOOT PROPERTIESThis sample file is provided as a guideline. Do NOT copy it in itsentirety to your own application.   CORE PROPERTIES  SPRING CONFIG (ConfigFileApplicatio">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-19T06:13:56.205Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="spring boot 默认配置项">
+<meta name="twitter:description" content="spring boot 默认配置项COMMON SPRING BOOT PROPERTIESThis sample file is provided as a guideline. Do NOT copy it in itsentirety to your own application.   CORE PROPERTIES  SPRING CONFIG (ConfigFileApplicatio">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/19/springboot/boot-default-config/">
+
+
+
+
+
+  <title>spring boot 默认配置项 | Carzy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Carzy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">做自己</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/springboot/boot-default-config/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Carzy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/iocn.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Carzy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">spring boot 默认配置项</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-19T13:57:54+08:00">
+                2018-11-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-19T14:13:56+08:00">
+                2018-11-19
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/springboot/" itemprop="url" rel="index">
+                    <span itemprop="name">springboot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/19/springboot/boot-default-config/" class="leancloud_visitors" data-flag-title="spring boot 默认配置项">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="spring-boot-默认配置项"><a href="#spring-boot-默认配置项" class="headerlink" title="spring boot 默认配置项"></a>spring boot 默认配置项</h1><p>COMMON SPRING BOOT PROPERTIES<br>This sample file is provided as a guideline. Do NOT copy it in its<br>entirety to your own application. </p>
+<hr>
+<p><code>CORE PROPERTIES</code></p>
+<hr>
+<h1 id="SPRING-CONFIG-ConfigFileApplicationListener"><a href="#SPRING-CONFIG-ConfigFileApplicationListener" class="headerlink" title="SPRING CONFIG (ConfigFileApplicationListener)"></a>SPRING CONFIG (ConfigFileApplicationListener)</h1><p>spring.config.name= # config file name (default to ‘application’)<br>spring.config.location= # location of config file</p>
+<h1 id="PROFILES"><a href="#PROFILES" class="headerlink" title="PROFILES"></a>PROFILES</h1><p>spring.profiles= # comma list of active profiles</p>
+<h1 id="APPLICATION-SETTINGS-SpringApplication"><a href="#APPLICATION-SETTINGS-SpringApplication" class="headerlink" title="APPLICATION SETTINGS (SpringApplication)"></a>APPLICATION SETTINGS (SpringApplication)</h1><p>spring.main.sources=<br>spring.main.web-environment= # detect by default<br>spring.main.show-banner=true<br>spring.main….= # see class for all properties</p>
+<h1 id="LOGGING"><a href="#LOGGING" class="headerlink" title="LOGGING"></a>LOGGING</h1><p>logging.path=/var/logs<br>logging.file=myapp.log<br>logging.config=</p>
+<h1 id="IDENTITY-ContextIdApplicationContextInitializer"><a href="#IDENTITY-ContextIdApplicationContextInitializer" class="headerlink" title="IDENTITY (ContextIdApplicationContextInitializer)"></a>IDENTITY (ContextIdApplicationContextInitializer)</h1><p>spring.application.name=<br>spring.application.index=</p>
+<h1 id="EMBEDDED-SERVER-CONFIGURATION-ServerProperties"><a href="#EMBEDDED-SERVER-CONFIGURATION-ServerProperties" class="headerlink" title="EMBEDDED SERVER CONFIGURATION (ServerProperties)"></a>EMBEDDED SERVER CONFIGURATION (ServerProperties)</h1><p>server.port=8080<br>server.address= # bind to a specific NIC<br>server.session-timeout= # session timeout in seconds<br>server.context-path= # the context path, defaults to ‘/‘<br>server.servlet-path= # the servlet path, defaults to ‘/‘<br>server.tomcat.access-log-pattern= # log pattern of the access log<br>server.tomcat.access-log-enabled=false # is access logging enabled<br>server.tomcat.protocol-header=x-forwarded-proto # ssl forward headers<br>server.tomcat.remote-ip-header=x-forwarded-for<br>server.tomcat.basedir=/tmp # base dir (usually not needed, defaults to tmp)<br>server.tomcat.background-processor-delay=30; # in seconds<br>server.tomcat.max-threads = 0 # number of threads in protocol handler<br>server.tomcat.uri-encoding = UTF-8 # character encoding to use for URL decoding</p>
+<h1 id="SPRING-MVC-HttpMapperProperties"><a href="#SPRING-MVC-HttpMapperProperties" class="headerlink" title="SPRING MVC (HttpMapperProperties)"></a>SPRING MVC (HttpMapperProperties)</h1><p>http.mappers.json-pretty-print=false # pretty print JSON<br>http.mappers.json-sort-keys=false # sort keys<br>spring.mvc.locale= # set fixed locale, e.g. en_UK<br>spring.mvc.date-format= # set fixed date format, e.g. dd/MM/yyyy<br>spring.mvc.message-codes-resolver-format= # PREFIX_ERROR_CODE / POSTFIX_ERROR_CODE<br>spring.view.prefix= # MVC view prefix<br>spring.view.suffix= # … and suffix<br>spring.resources.cache-period= # cache timeouts in headers sent to browser<br>spring.resources.add-mappings=true # if default mappings should be added</p>
+<h1 id="THYMELEAF-ThymeleafAutoConfiguration"><a href="#THYMELEAF-ThymeleafAutoConfiguration" class="headerlink" title="THYMELEAF (ThymeleafAutoConfiguration)"></a>THYMELEAF (ThymeleafAutoConfiguration)</h1><p>spring.thymeleaf.prefix=classpath:/templates/<br>spring.thymeleaf.suffix=.html<br>spring.thymeleaf.mode=HTML5<br>spring.thymeleaf.encoding=UTF-8<br>spring.thymeleaf.content-type=text/html # ;charset=<code>&lt;encoding&gt;</code> is added<br>spring.thymeleaf.cache=true # set to false for hot refresh</p>
+<h1 id="FREEMARKER-FreeMarkerAutoConfiguration"><a href="#FREEMARKER-FreeMarkerAutoConfiguration" class="headerlink" title="FREEMARKER (FreeMarkerAutoConfiguration)"></a>FREEMARKER (FreeMarkerAutoConfiguration)</h1><p>spring.freemarker.allowRequestOverride=false<br>spring.freemarker.allowSessionOverride=false<br>spring.freemarker.cache=true<br>spring.freemarker.checkTemplateLocation=true<br>spring.freemarker.contentType=text/html<br>spring.freemarker.exposeRequestAttributes=false<br>spring.freemarker.exposeSessionAttributes=false<br>spring.freemarker.exposeSpringMacroHelpers=false<br>spring.freemarker.prefix=<br>spring.freemarker.requestContextAttribute=<br>spring.freemarker.settings.*=<br>spring.freemarker.suffix=.ftl<br>spring.freemarker.templateEncoding=UTF-8<br>spring.freemarker.templateLoaderPath=classpath:/templates/<br>spring.freemarker.viewNames= # whitelist of view names that can be resolved</p>
+<h1 id="GROOVY-TEMPLATES-GroovyTemplateAutoConfiguration"><a href="#GROOVY-TEMPLATES-GroovyTemplateAutoConfiguration" class="headerlink" title="GROOVY TEMPLATES (GroovyTemplateAutoConfiguration)"></a>GROOVY TEMPLATES (GroovyTemplateAutoConfiguration)</h1><p>spring.groovy.template.allowRequestOverride=false<br>spring.groovy.template.allowSessionOverride=false<br>spring.groovy.template.cache=true<br>spring.groovy.template.configuration.*= # See Groovy’s TemplateConfiguration<br>spring.groovy.template.contentType=text/html<br>spring.groovy.template.prefix=classpath:/templates/<br>spring.groovy.template.suffix=.tpl<br>spring.groovy.template.templateEncoding=UTF-8<br>spring.groovy.template.viewNames= # whitelist of view names that can be resolved</p>
+<h1 id="VELOCITY-TEMPLATES-VelocityAutoConfiguration"><a href="#VELOCITY-TEMPLATES-VelocityAutoConfiguration" class="headerlink" title="VELOCITY TEMPLATES (VelocityAutoConfiguration)"></a>VELOCITY TEMPLATES (VelocityAutoConfiguration)</h1><p>spring.velocity.allowRequestOverride=false<br>spring.velocity.allowSessionOverride=false<br>spring.velocity.cache=true<br>spring.velocity.checkTemplateLocation=true<br>spring.velocity.contentType=text/html<br>spring.velocity.dateToolAttribute=<br>spring.velocity.exposeRequestAttributes=false<br>spring.velocity.exposeSessionAttributes=false<br>spring.velocity.exposeSpringMacroHelpers=false<br>spring.velocity.numberToolAttribute=<br>spring.velocity.prefix=<br>spring.velocity.properties.*=<br>spring.velocity.requestContextAttribute=<br>spring.velocity.resourceLoaderPath=classpath:/templates/<br>spring.velocity.suffix=.vm<br>spring.velocity.templateEncoding=UTF-8<br>spring.velocity.viewNames= # whitelist of view names that can be resolved</p>
+<h1 id="INTERNATIONALIZATION-MessageSourceAutoConfiguration"><a href="#INTERNATIONALIZATION-MessageSourceAutoConfiguration" class="headerlink" title="INTERNATIONALIZATION (MessageSourceAutoConfiguration)"></a>INTERNATIONALIZATION (MessageSourceAutoConfiguration)</h1><p>spring.messages.basename=messages<br>spring.messages.cacheSeconds=-1<br>spring.messages.encoding=UTF-8</p>
+<h1 id="SECURITY-SecurityProperties"><a href="#SECURITY-SecurityProperties" class="headerlink" title="SECURITY (SecurityProperties)"></a>SECURITY (SecurityProperties)</h1><p>security.user.name=user # login username<br>security.user.password= # login password<br>security.user.role=USER # role assigned to the user<br>security.require-ssl=false # advanced settings …<br>security.enable-csrf=false<br>security.basic.enabled=true<br>security.basic.realm=Spring<br>security.basic.path= # /**<br>security.headers.xss=false<br>security.headers.cache=false<br>security.headers.frame=false<br>security.headers.contentType=false<br>security.headers.hsts=all # none / domain / all<br>security.sessions=stateless # always / never / if_required / stateless<br>security.ignored=false</p>
+<h1 id="DATASOURCE-DataSourceAutoConfiguration-amp-DataSourceProperties"><a href="#DATASOURCE-DataSourceAutoConfiguration-amp-DataSourceProperties" class="headerlink" title="DATASOURCE (DataSourceAutoConfiguration &amp; DataSourceProperties)"></a>DATASOURCE (DataSourceAutoConfiguration &amp; DataSourceProperties)</h1><p>spring.datasource.name= # name of the data source<br>spring.datasource.initialize=true # populate using data.sql<br>spring.datasource.schema= # a schema (DDL) script resource reference<br>spring.datasource.data= # a data (DML) script resource reference<br>spring.datasource.platform= # the platform to use in the schema resource (schema-${platform}.sql)<br>spring.datasource.continueOnError=false # continue even if can’t be initialized<br>spring.datasource.separator=; # statement separator in SQL initialization scripts<br>spring.datasource.driverClassName= # JDBC Settings…<br>spring.datasource.url=<br>spring.datasource.username=<br>spring.datasource.password=<br>spring.datasource.max-active=100 # Advanced configuration…<br>spring.datasource.max-idle=8<br>spring.datasource.min-idle=8<br>spring.datasource.initial-size=10<br>spring.datasource.validation-query=<br>spring.datasource.test-on-borrow=false<br>spring.datasource.test-on-return=false<br>spring.datasource.test-while-idle=<br>spring.datasource.time-between-eviction-runs-millis=<br>spring.datasource.min-evictable-idle-time-millis=<br>spring.datasource.max-wait-millis=</p>
+<h1 id="MONGODB-MongoProperties"><a href="#MONGODB-MongoProperties" class="headerlink" title="MONGODB (MongoProperties)"></a>MONGODB (MongoProperties)</h1><p>spring.data.mongodb.host= # the db host<br>spring.data.mongodb.port=27017 # the connection port (defaults to 27107)<br>spring.data.mongodb.uri=mongodb://localhost/test # connection URL<br>spring.data.mongo.repositories.enabled=true # if spring data repository support is enabled</p>
+<h1 id="JPA-JpaBaseConfiguration-HibernateJpaAutoConfiguration"><a href="#JPA-JpaBaseConfiguration-HibernateJpaAutoConfiguration" class="headerlink" title="JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)"></a>JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)</h1><p>spring.jpa.properties.*= # properties to set on the JPA connection<br>spring.jpa.openInView=true<br>spring.jpa.show-sql=true<br>spring.jpa.database-platform=<br>spring.jpa.database=<br>spring.jpa.generate-ddl=false # ignored by Hibernate, might be useful for other vendors<br>spring.jpa.hibernate.naming-strategy= # naming classname<br>spring.jpa.hibernate.ddl-auto= # defaults to create-drop for embedded dbs<br>spring.data.jpa.repositories.enabled=true # if spring data repository support is enabled</p>
+<h1 id="SOLR-SolrProperties"><a href="#SOLR-SolrProperties" class="headerlink" title="SOLR (SolrProperties})"></a>SOLR (SolrProperties})</h1><p>spring.data.solr.host=<a href="http://127.0.0.1:8983/solr" target="_blank" rel="noopener">http://127.0.0.1:8983/solr</a><br>spring.data.solr.zkHost=<br>spring.data.solr.repositories.enabled=true # if spring data repository support is enabled</p>
+<h1 id="ELASTICSEARCH-ElasticsearchProperties"><a href="#ELASTICSEARCH-ElasticsearchProperties" class="headerlink" title="ELASTICSEARCH (ElasticsearchProperties})"></a>ELASTICSEARCH (ElasticsearchProperties})</h1><p>spring.data.elasticsearch.cluster-name= # The cluster name (defaults to elasticsearch)<br>spring.data.elasticsearch.cluster-nodes= # The address(es) of the server node (comma-separated; if not specified starts a client node)<br>spring.data.elasticsearch.local=true # if local mode should be used with client nodes<br>spring.data.elasticsearch.repositories.enabled=true # if spring data repository support is enabled</p>
+<h1 id="FLYWAY-FlywayProperties"><a href="#FLYWAY-FlywayProperties" class="headerlink" title="FLYWAY (FlywayProperties)"></a>FLYWAY (FlywayProperties)</h1><p>flyway.locations=classpath:db/migrations # locations of migrations scripts<br>flyway.schemas= # schemas to update<br>flyway.initVersion= 1 # version to start migration<br>flyway.prefix=V<br>flyway.suffix=.sql<br>flyway.enabled=true<br>flyway.url= # JDBC url if you want Flyway to create its own DataSource<br>flyway.user= # JDBC username if you want Flyway to create its own DataSource<br>flyway.password= # JDBC password if you want Flyway to create its own DataSource</p>
+<h1 id="LIQUIBASE-LiquibaseProperties"><a href="#LIQUIBASE-LiquibaseProperties" class="headerlink" title="LIQUIBASE (LiquibaseProperties)"></a>LIQUIBASE (LiquibaseProperties)</h1><p>liquibase.change-log=classpath:/db/changelog/db.changelog-master.yaml<br>liquibase.contexts= # runtime contexts to use<br>liquibase.default-schema= # default database schema to use<br>liquibase.drop-first=false<br>liquibase.enabled=true</p>
+<h1 id="JMX"><a href="#JMX" class="headerlink" title="JMX"></a>JMX</h1><p>spring.jmx.enabled=true # Expose MBeans from Spring</p>
+<h1 id="RABBIT-RabbitProperties"><a href="#RABBIT-RabbitProperties" class="headerlink" title="RABBIT (RabbitProperties)"></a>RABBIT (RabbitProperties)</h1><p>spring.rabbitmq.host= # connection host<br>spring.rabbitmq.port= # connection port<br>spring.rabbitmq.addresses= # connection addresses (e.g. myhost:9999,otherhost:1111)<br>spring.rabbitmq.username= # login user<br>spring.rabbitmq.password= # login password<br>spring.rabbitmq.virtualhost=<br>spring.rabbitmq.dynamic=</p>
+<h1 id="REDIS-RedisProperties"><a href="#REDIS-RedisProperties" class="headerlink" title="REDIS (RedisProperties)"></a>REDIS (RedisProperties)</h1><p>spring.redis.host=localhost # server host<br>spring.redis.password= # server password<br>spring.redis.port=6379 # connection port<br>spring.redis.pool.max-idle=8 # pool settings …<br>spring.redis.pool.min-idle=0<br>spring.redis.pool.max-active=8<br>spring.redis.pool.max-wait=-1</p>
+<h1 id="ACTIVEMQ-ActiveMQProperties"><a href="#ACTIVEMQ-ActiveMQProperties" class="headerlink" title="ACTIVEMQ (ActiveMQProperties)"></a>ACTIVEMQ (ActiveMQProperties)</h1><p>spring.activemq.broker-url=tcp://localhost:61616 # connection URL<br>spring.activemq.user=<br>spring.activemq.password=<br>spring.activemq.in-memory=true # broker kind to create if no broker-url is specified<br>spring.activemq.pooled=false</p>
+<h1 id="HornetQ-HornetQProperties"><a href="#HornetQ-HornetQProperties" class="headerlink" title="HornetQ (HornetQProperties)"></a>HornetQ (HornetQProperties)</h1><p>spring.hornetq.mode= # connection mode (native, embedded)<br>spring.hornetq.host=localhost # hornetQ host (native mode)<br>spring.hornetq.port=5445 # hornetQ port (native mode)<br>spring.hornetq.embedded.enabled=true # if the embedded server is enabled (needs hornetq-jms-server.jar)<br>spring.hornetq.embedded.serverId= # auto-generated id of the embedded server (integer)<br>spring.hornetq.embedded.persistent=false # message persistence<br>spring.hornetq.embedded.data-directory= # location of data content (when persistence is enabled)<br>spring.hornetq.embedded.queues= # comma separate queues to create on startup<br>spring.hornetq.embedded.topics= # comma separate topics to create on startup<br>spring.hornetq.embedded.cluster-password= # customer password (randomly generated by default)</p>
+<h1 id="JMS-JmsProperties"><a href="#JMS-JmsProperties" class="headerlink" title="JMS (JmsProperties)"></a>JMS (JmsProperties)</h1><p>spring.jms.pub-sub-domain= # false for queue (default), true for topic</p>
+<h1 id="SPRING-BATCH-BatchDatabaseInitializer"><a href="#SPRING-BATCH-BatchDatabaseInitializer" class="headerlink" title="SPRING BATCH (BatchDatabaseInitializer)"></a>SPRING BATCH (BatchDatabaseInitializer)</h1><p>spring.batch.job.names=job1,job2<br>spring.batch.job.enabled=true<br>spring.batch.initializer.enabled=true<br>spring.batch.schema= # batch schema to load</p>
+<h1 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h1><p>spring.aop.auto=<br>spring.aop.proxy-target-class=</p>
+<h1 id="FILE-ENCODING-FileEncodingApplicationListener"><a href="#FILE-ENCODING-FileEncodingApplicationListener" class="headerlink" title="FILE ENCODING (FileEncodingApplicationListener)"></a>FILE ENCODING (FileEncodingApplicationListener)</h1><p>spring.mandatory-file-encoding=false</p>
+<h1 id="SPRING-SOCIAL-SocialWebAutoConfiguration"><a href="#SPRING-SOCIAL-SocialWebAutoConfiguration" class="headerlink" title="SPRING SOCIAL (SocialWebAutoConfiguration)"></a>SPRING SOCIAL (SocialWebAutoConfiguration)</h1><p>spring.social.auto-connection-views=true # Set to true for default connection views or false if you provide your own</p>
+<h1 id="SPRING-SOCIAL-FACEBOOK-FacebookAutoConfiguration"><a href="#SPRING-SOCIAL-FACEBOOK-FacebookAutoConfiguration" class="headerlink" title="SPRING SOCIAL FACEBOOK (FacebookAutoConfiguration)"></a>SPRING SOCIAL FACEBOOK (FacebookAutoConfiguration)</h1><p>spring.social.facebook.app-id= # your application’s Facebook App ID<br>spring.social.facebook.app-secret= # your application’s Facebook App Secret</p>
+<h1 id="SPRING-SOCIAL-LINKEDIN-LinkedInAutoConfiguration"><a href="#SPRING-SOCIAL-LINKEDIN-LinkedInAutoConfiguration" class="headerlink" title="SPRING SOCIAL LINKEDIN (LinkedInAutoConfiguration)"></a>SPRING SOCIAL LINKEDIN (LinkedInAutoConfiguration)</h1><p>spring.social.linkedin.app-id= # your application’s LinkedIn App ID<br>spring.social.linkedin.app-secret= # your application’s LinkedIn App Secret</p>
+<h1 id="SPRING-SOCIAL-TWITTER-TwitterAutoConfiguration"><a href="#SPRING-SOCIAL-TWITTER-TwitterAutoConfiguration" class="headerlink" title="SPRING SOCIAL TWITTER (TwitterAutoConfiguration)"></a>SPRING SOCIAL TWITTER (TwitterAutoConfiguration)</h1><p>spring.social.twitter.app-id= # your application’s Twitter App ID<br>spring.social.twitter.app-secret= # your application’s Twitter App Secret</p>
+<h1 id="SPRING-MOBILE-SITE-PREFERENCE-SitePreferenceAutoConfiguration"><a href="#SPRING-MOBILE-SITE-PREFERENCE-SitePreferenceAutoConfiguration" class="headerlink" title="SPRING MOBILE SITE PREFERENCE (SitePreferenceAutoConfiguration)"></a>SPRING MOBILE SITE PREFERENCE (SitePreferenceAutoConfiguration)</h1><p>spring.mobile.sitepreference.enabled=true # enabled by default</p>
+<h1 id="SPRING-MOBILE-DEVICE-VIEWS-DeviceDelegatingViewResolverAutoConfiguration"><a href="#SPRING-MOBILE-DEVICE-VIEWS-DeviceDelegatingViewResolverAutoConfiguration" class="headerlink" title="SPRING MOBILE DEVICE VIEWS (DeviceDelegatingViewResolverAutoConfiguration)"></a>SPRING MOBILE DEVICE VIEWS (DeviceDelegatingViewResolverAutoConfiguration)</h1><p>spring.mobile.devicedelegatingviewresolver.enabled=true # disabled by default<br>spring.mobile.devicedelegatingviewresolver.normalPrefix=<br>spring.mobile.devicedelegatingviewresolver.normalSuffix=<br>spring.mobile.devicedelegatingviewresolver.mobilePrefix=mobile/<br>spring.mobile.devicedelegatingviewresolver.mobileSuffix=<br>spring.mobile.devicedelegatingviewresolver.tabletPrefix=tablet/<br>spring.mobile.devicedelegatingviewresolver.tabletSuffix=</p>
+<hr>
+<p>ACTUATOR PROPERTIES</p>
+<hr>
+<h1 id="MANAGEMENT-HTTP-SERVER-ManagementServerProperties"><a href="#MANAGEMENT-HTTP-SERVER-ManagementServerProperties" class="headerlink" title="MANAGEMENT HTTP SERVER (ManagementServerProperties)"></a>MANAGEMENT HTTP SERVER (ManagementServerProperties)</h1><p>management.port= # defaults to ‘server.port’<br>management.address= # bind to a specific NIC<br>management.contextPath= # default to ‘/‘</p>
+<h1 id="ENDPOINTS-AbstractEndpoint-subclasses"><a href="#ENDPOINTS-AbstractEndpoint-subclasses" class="headerlink" title="ENDPOINTS (AbstractEndpoint subclasses)"></a>ENDPOINTS (AbstractEndpoint subclasses)</h1><p>endpoints.autoconfig.id=autoconfig<br>endpoints.autoconfig.sensitive=true<br>endpoints.autoconfig.enabled=true<br>endpoints.beans.id=beans<br>endpoints.beans.sensitive=true<br>endpoints.beans.enabled=true<br>endpoints.configprops.id=configprops<br>endpoints.configprops.sensitive=true<br>endpoints.configprops.enabled=true<br>endpoints.configprops.keys-to-sanitize=password,secret<br>endpoints.dump.id=dump<br>endpoints.dump.sensitive=true<br>endpoints.dump.enabled=true<br>endpoints.env.id=env<br>endpoints.env.sensitive=true<br>endpoints.env.enabled=true<br>endpoints.health.id=health<br>endpoints.health.sensitive=false<br>endpoints.health.enabled=true<br>endpoints.info.id=info<br>endpoints.info.sensitive=false<br>endpoints.info.enabled=true<br>endpoints.metrics.id=metrics<br>endpoints.metrics.sensitive=true<br>endpoints.metrics.enabled=true<br>endpoints.shutdown.id=shutdown<br>endpoints.shutdown.sensitive=true<br>endpoints.shutdown.enabled=false<br>endpoints.trace.id=trace<br>endpoints.trace.sensitive=true<br>endpoints.trace.enabled=true</p>
+<h1 id="MVC-ONLY-ENDPOINTS"><a href="#MVC-ONLY-ENDPOINTS" class="headerlink" title="MVC ONLY ENDPOINTS"></a>MVC ONLY ENDPOINTS</h1><p>endpoints.jolokia.path=jolokia<br>endpoints.jolokia.sensitive=true<br>endpoints.jolokia.enabled=true # when using Jolokia<br>endpoints.error.path=/error</p>
+<h1 id="JMX-ENDPOINT-EndpointMBeanExportProperties"><a href="#JMX-ENDPOINT-EndpointMBeanExportProperties" class="headerlink" title="JMX ENDPOINT (EndpointMBeanExportProperties)"></a>JMX ENDPOINT (EndpointMBeanExportProperties)</h1><p>endpoints.jmx.enabled=true<br>endpoints.jmx.domain= # the JMX domain, defaults to ‘org.springboot’<br>endpoints.jmx.unique-names=false<br>endpoints.jmx.enabled=true<br>endpoints.jmx.staticNames=</p>
+<h1 id="JOLOKIA-JolokiaProperties"><a href="#JOLOKIA-JolokiaProperties" class="headerlink" title="JOLOKIA (JolokiaProperties)"></a>JOLOKIA (JolokiaProperties)</h1><p>jolokia.config.*= # See Jolokia manual</p>
+<h1 id="REMOTE-SHELL"><a href="#REMOTE-SHELL" class="headerlink" title="REMOTE SHELL"></a>REMOTE SHELL</h1><p>shell.auth=simple # jaas, key, simple, spring<br>shell.command-refresh-interval=-1<br>shell.command-path-pattern= # classpath<em>:/commands/**, classpath</em>:/crash/commands/*<em><br>shell.config-path-patterns= # classpath</em>:/crash/*<br>shell.disabled-plugins=false # don’t expose plugins<br>shell.ssh.enabled= # ssh settings …<br>shell.ssh.keyPath=<br>shell.ssh.port=<br>shell.telnet.enabled= # telnet settings …<br>shell.telnet.port=<br>shell.auth.jaas.domain= # authentication settings …<br>shell.auth.key.path=<br>shell.auth.simple.user.name=<br>shell.auth.simple.user.password=<br>shell.auth.spring.roles=</p>
+<h1 id="GIT-INFO"><a href="#GIT-INFO" class="headerlink" title="GIT INFO"></a>GIT INFO</h1><p>spring.git.properties= # resource ref to generated git info properties file</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+            <a href="/tags/springboot/" rel="tag"># springboot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/20/docker/上传image/" rel="next" title="上传 Docker Image">
+                <i class="fa fa-chevron-left"></i> 上传 Docker Image
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/19/springboot/spring-cloud/" rel="prev" title="spring cloud">
+                spring cloud <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bf36903b22e9404" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/iocn.png" alt="Carzy">
+            
+              <p class="site-author-name" itemprop="name">Carzy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/DongCarzy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="394163807@qq.com" target="_blank" title="QQ-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>QQ-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="dongxinpingwh@gmail.com" target="_blank" title="G-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>G-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://coding.net/u/carzy" target="_blank" title="Coding">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Coding</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="百度" target="_blank">百度</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com" title="GITHUB" target="_blank">GITHUB</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#spring-boot-默认配置项"><span class="nav-number">1.</span> <span class="nav-text">spring boot 默认配置项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-CONFIG-ConfigFileApplicationListener"><span class="nav-number">2.</span> <span class="nav-text">SPRING CONFIG (ConfigFileApplicationListener)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PROFILES"><span class="nav-number">3.</span> <span class="nav-text">PROFILES</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#APPLICATION-SETTINGS-SpringApplication"><span class="nav-number">4.</span> <span class="nav-text">APPLICATION SETTINGS (SpringApplication)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOGGING"><span class="nav-number">5.</span> <span class="nav-text">LOGGING</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IDENTITY-ContextIdApplicationContextInitializer"><span class="nav-number">6.</span> <span class="nav-text">IDENTITY (ContextIdApplicationContextInitializer)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EMBEDDED-SERVER-CONFIGURATION-ServerProperties"><span class="nav-number">7.</span> <span class="nav-text">EMBEDDED SERVER CONFIGURATION (ServerProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-MVC-HttpMapperProperties"><span class="nav-number">8.</span> <span class="nav-text">SPRING MVC (HttpMapperProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#THYMELEAF-ThymeleafAutoConfiguration"><span class="nav-number">9.</span> <span class="nav-text">THYMELEAF (ThymeleafAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FREEMARKER-FreeMarkerAutoConfiguration"><span class="nav-number">10.</span> <span class="nav-text">FREEMARKER (FreeMarkerAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GROOVY-TEMPLATES-GroovyTemplateAutoConfiguration"><span class="nav-number">11.</span> <span class="nav-text">GROOVY TEMPLATES (GroovyTemplateAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#VELOCITY-TEMPLATES-VelocityAutoConfiguration"><span class="nav-number">12.</span> <span class="nav-text">VELOCITY TEMPLATES (VelocityAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#INTERNATIONALIZATION-MessageSourceAutoConfiguration"><span class="nav-number">13.</span> <span class="nav-text">INTERNATIONALIZATION (MessageSourceAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SECURITY-SecurityProperties"><span class="nav-number">14.</span> <span class="nav-text">SECURITY (SecurityProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DATASOURCE-DataSourceAutoConfiguration-amp-DataSourceProperties"><span class="nav-number">15.</span> <span class="nav-text">DATASOURCE (DataSourceAutoConfiguration &amp; DataSourceProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MONGODB-MongoProperties"><span class="nav-number">16.</span> <span class="nav-text">MONGODB (MongoProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JPA-JpaBaseConfiguration-HibernateJpaAutoConfiguration"><span class="nav-number">17.</span> <span class="nav-text">JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SOLR-SolrProperties"><span class="nav-number">18.</span> <span class="nav-text">SOLR (SolrProperties})</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ELASTICSEARCH-ElasticsearchProperties"><span class="nav-number">19.</span> <span class="nav-text">ELASTICSEARCH (ElasticsearchProperties})</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FLYWAY-FlywayProperties"><span class="nav-number">20.</span> <span class="nav-text">FLYWAY (FlywayProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LIQUIBASE-LiquibaseProperties"><span class="nav-number">21.</span> <span class="nav-text">LIQUIBASE (LiquibaseProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMX"><span class="nav-number">22.</span> <span class="nav-text">JMX</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RABBIT-RabbitProperties"><span class="nav-number">23.</span> <span class="nav-text">RABBIT (RabbitProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REDIS-RedisProperties"><span class="nav-number">24.</span> <span class="nav-text">REDIS (RedisProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ACTIVEMQ-ActiveMQProperties"><span class="nav-number">25.</span> <span class="nav-text">ACTIVEMQ (ActiveMQProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HornetQ-HornetQProperties"><span class="nav-number">26.</span> <span class="nav-text">HornetQ (HornetQProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMS-JmsProperties"><span class="nav-number">27.</span> <span class="nav-text">JMS (JmsProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-BATCH-BatchDatabaseInitializer"><span class="nav-number">28.</span> <span class="nav-text">SPRING BATCH (BatchDatabaseInitializer)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AOP"><span class="nav-number">29.</span> <span class="nav-text">AOP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FILE-ENCODING-FileEncodingApplicationListener"><span class="nav-number">30.</span> <span class="nav-text">FILE ENCODING (FileEncodingApplicationListener)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-SOCIAL-SocialWebAutoConfiguration"><span class="nav-number">31.</span> <span class="nav-text">SPRING SOCIAL (SocialWebAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-SOCIAL-FACEBOOK-FacebookAutoConfiguration"><span class="nav-number">32.</span> <span class="nav-text">SPRING SOCIAL FACEBOOK (FacebookAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-SOCIAL-LINKEDIN-LinkedInAutoConfiguration"><span class="nav-number">33.</span> <span class="nav-text">SPRING SOCIAL LINKEDIN (LinkedInAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-SOCIAL-TWITTER-TwitterAutoConfiguration"><span class="nav-number">34.</span> <span class="nav-text">SPRING SOCIAL TWITTER (TwitterAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-MOBILE-SITE-PREFERENCE-SitePreferenceAutoConfiguration"><span class="nav-number">35.</span> <span class="nav-text">SPRING MOBILE SITE PREFERENCE (SitePreferenceAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SPRING-MOBILE-DEVICE-VIEWS-DeviceDelegatingViewResolverAutoConfiguration"><span class="nav-number">36.</span> <span class="nav-text">SPRING MOBILE DEVICE VIEWS (DeviceDelegatingViewResolverAutoConfiguration)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MANAGEMENT-HTTP-SERVER-ManagementServerProperties"><span class="nav-number">37.</span> <span class="nav-text">MANAGEMENT HTTP SERVER (ManagementServerProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ENDPOINTS-AbstractEndpoint-subclasses"><span class="nav-number">38.</span> <span class="nav-text">ENDPOINTS (AbstractEndpoint subclasses)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVC-ONLY-ENDPOINTS"><span class="nav-number">39.</span> <span class="nav-text">MVC ONLY ENDPOINTS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JMX-ENDPOINT-EndpointMBeanExportProperties"><span class="nav-number">40.</span> <span class="nav-text">JMX ENDPOINT (EndpointMBeanExportProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JOLOKIA-JolokiaProperties"><span class="nav-number">41.</span> <span class="nav-text">JOLOKIA (JolokiaProperties)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#REMOTE-SHELL"><span class="nav-number">42.</span> <span class="nav-text">REMOTE SHELL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GIT-INFO"><span class="nav-number">43.</span> <span class="nav-text">GIT INFO</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Carzy</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <!-- <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>  -->
+
+	<link rel="stylesheet" href="https://dongcarzy.github.io/css/gitalk.css">
+	<script src="https://dongcarzy.github.io/js/gitalk.min.js"></script>
+
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: '9a2cb077d9546b2c88db',
+		  clientSecret: 'f7c4dfd1513162fb2e3093af5a88d0017502357c',
+		  repo: 'gitment',
+		  owner: 'DongCarzy',
+		  admin: ['DongCarzy'], 
+		  id: location.pathname,
+		  distractionFreeMode: 'true'
+		})
+		gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LnBs8Dwi71f7eOd5Lrr7ckpm-gzGzoHsz", "hctSr7z4MU81335H5vXSIMh4");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

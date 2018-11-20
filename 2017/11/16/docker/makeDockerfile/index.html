@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,入门,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Carzy" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="编写Dockerfiles的最佳做法Docker可以通过从Dockerfile包含所有命令的文本文件中读取指令来自动构建图像 ，以便构建给定图像所需的顺序。 一般准则和建议容器应该是精简的使用.dockerignore文件在大多数情况下，最好将每个Dockerfile放在一个空目录中。然后，仅添加构建Dockerfile所需的文件。为了增加构建的性能，您可以通过.dockerignore向该目录添">
+<meta name="keywords" content="docker,入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dockerfiles的最佳实践">
+<meta property="og:url" content="http://yoursite.com/2017/11/16/docker/makeDockerfile/index.html">
+<meta property="og:site_name" content="Carzy">
+<meta property="og:description" content="编写Dockerfiles的最佳做法Docker可以通过从Dockerfile包含所有命令的文本文件中读取指令来自动构建图像 ，以便构建给定图像所需的顺序。 一般准则和建议容器应该是精简的使用.dockerignore文件在大多数情况下，最好将每个Dockerfile放在一个空目录中。然后，仅添加构建Dockerfile所需的文件。为了增加构建的性能，您可以通过.dockerignore向该目录添">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-16T09:51:06.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dockerfiles的最佳实践">
+<meta name="twitter:description" content="编写Dockerfiles的最佳做法Docker可以通过从Dockerfile包含所有命令的文本文件中读取指令来自动构建图像 ，以便构建给定图像所需的顺序。 一般准则和建议容器应该是精简的使用.dockerignore文件在大多数情况下，最好将每个Dockerfile放在一个空目录中。然后，仅添加构建Dockerfile所需的文件。为了增加构建的性能，您可以通过.dockerignore向该目录添">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/16/docker/makeDockerfile/">
+
+
+
+
+
+  <title>Dockerfiles的最佳实践 | Carzy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Carzy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">做自己</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-post" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/16/docker/makeDockerfile/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Carzy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/iocn.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Carzy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Dockerfiles的最佳实践</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-16T19:13:57+08:00">
+                2017-11-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-16T17:51:06+08:00">
+                2018-11-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/16/docker/makeDockerfile/" class="leancloud_visitors" data-flag-title="Dockerfiles的最佳实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="编写Dockerfiles的最佳做法"><a href="#编写Dockerfiles的最佳做法" class="headerlink" title="编写Dockerfiles的最佳做法"></a>编写Dockerfiles的最佳做法</h1><p>Docker可以通过从Dockerfile包含所有命令的文本文件中读取指令来自动构建图像 ，以便构建给定图像所需的顺序。</p>
+<h2 id="一般准则和建议"><a href="#一般准则和建议" class="headerlink" title="一般准则和建议"></a>一般准则和建议</h2><h3 id="容器应该是精简的"><a href="#容器应该是精简的" class="headerlink" title="容器应该是精简的"></a>容器应该是精简的</h3><h3 id="使用-dockerignore文件"><a href="#使用-dockerignore文件" class="headerlink" title="使用.dockerignore文件"></a>使用.dockerignore文件</h3><p>在大多数情况下，最好将每个Dockerfile放在一个空目录中。然后，仅添加构建Dockerfile所需的文件。为了增加构建的性能，您可以通过.dockerignore向该目录添加文件来排除文件和目录。此文件支持类似于.gitignore文件的排除模式。</p>
+<h4 id="避免安装不必要的包"><a href="#避免安装不必要的包" class="headerlink" title="避免安装不必要的包"></a>避免安装不必要的包</h4><p>为了减少复杂性，依赖性，文件大小和构建时间，您应该避免安装额外的或不必要的包</p>
+<h4 id="容器单纯化"><a href="#容器单纯化" class="headerlink" title="容器单纯化"></a>容器单纯化</h4><p>将应用程序分解成多个容器可以更轻松地水平扩展和重新使用容器。例如，Web应用程序堆栈可能由三个独立的容器组成，每个容器具有自己独特的映像，以解耦的方式管理Web应用程序，数据库和内存中缓存。尽可能地判断容器是否干净，模块化。<br>如果容器相互依赖，则可以使用Docker容器网络 来确保这些容器可以通信。</p>
+<h4 id="最小化层数"><a href="#最小化层数" class="headerlink" title="最小化层数"></a>最小化层数</h4><p>你需要找到<code>dockerfile</code> 可用性(长期可维护性)之间的平衡,并最大限度地减少其使用的层数。</p>
+<h4 id="排序多行参数"><a href="#排序多行参数" class="headerlink" title="排序多行参数"></a>排序多行参数</h4><p>只要有可能，通过以字母数字排序多行参数来缓解以后的更改。这将帮助您避免重复的包，并使列表更容易更新。这也使得PR更容易阅读和审查。在反斜杠（<code>\</code>）之前添加一个空格。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">  bzr \</span></span><br><span class="line"><span class="bash">  cvs \</span></span><br><span class="line"><span class="bash">  git \</span></span><br><span class="line"><span class="bash">  mercurial \</span></span><br><span class="line"><span class="bash">  subversion</span></span><br></pre></td></tr></table></figure>
+<h4 id="构建缓存"><a href="#构建缓存" class="headerlink" title="构建缓存"></a>构建缓存</h4><p>在构建映像的过程中，Docker将Dockerfile按照指定的顺序逐步执行每个指令。随着每条指令的检查，Docker将在其缓存中查找可以重用的现有映像，而不是创建一个新的（重复）映像。用<code>--no-cache=true</code>该<code>docker build</code>命令上,将不会使用缓存<br>何时会找到匹配的<code>image</code></p>
+<ul>
+<li>从已经在缓存中的父图像开始，将下一条指令与从该基础图像导出的所有子图像进行比较，以查看其中一个是否使用完全相同的指令构建。如果没有，则缓存无效。</li>
+<li>在大多数情况下，简单地比较Dockerfile与其中一个子图像的指令是足够的。但是，某些说明需要更多的检查和解释。</li>
+<li>对于ADD和COPY指令，检查图像中文件的内容，并为每个文件计算校验和。在这些校验和中不考虑文件的最后修改和最后访问的时间。在缓存查找期间，将校验和与现有映像中的校验和进行比较。如果文件（如内容和元数据）中有任何变化，则缓存无效。</li>
+<li>除了ADD和COPY命令之外，缓存检查不会查看容器中的文件来确定缓存匹配。例如，当处理RUN apt-get -y update命令时，将不会检查在容器中更新的文件以确定是否存在高速缓存命中。在这种情况下，只有命令字符串本身将用于查找匹配。</li>
+</ul>
+<p>一旦缓存无效，所有后续Dockerfile命令将生成新的映像，并且高速缓存将不被使用。</p>
+<h3 id="Dockerfile指令"><a href="#Dockerfile指令" class="headerlink" title="Dockerfile指令"></a>Dockerfile指令</h3><p>[x] FROM<br>[x] LABEL<br>[x] RUN<br>[x] APT-GET<br>[x] USING PIPES<br>[x] CMD<br>[x] EXPOSE<br>[x] ENV<br>[x] ADD or COPY<br>[x] ENTRYPOINT<br>[x] VOLUME<br>[x] USER<br>[x] WORKDIR<br>[x] ONBUILD</p>
+<h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><p>只要有可能，使用现有的官方存储库作为您的图像的基础。</p>
+<h4 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h4><p>您可以为图像添加标签,<code>(空格)</code>, <code>&quot;</code> 等字符需要转义</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Set one or more individual labels</span></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> com.example.version=<span class="string">"0.0.1-beta"</span></span></span><br><span class="line"><span class="bash">LABEL vendor=<span class="string">"ACME Incorporated"</span></span></span><br><span class="line"><span class="bash">LABEL com.example.release-date=<span class="string">"2015-02-12"</span></span></span><br><span class="line"><span class="bash">LABEL com.example.version.is-production=<span class="string">""</span></span></span><br><span class="line"><span class="bash"><span class="comment"># Set multiple labels on one line</span></span></span><br><span class="line"><span class="bash">LABEL com.example.version=<span class="string">"0.0.1-beta"</span> com.example.release-date=<span class="string">"2015-02-12"</span></span></span><br><span class="line"><span class="bash"></span></span><br><span class="line"><span class="bash"><span class="comment"># Set multiple labels at once, using line-continuation characters to break long lines</span></span></span><br><span class="line"><span class="bash">LABEL vendor=ACME\ Incorporated \</span></span><br><span class="line"><span class="bash">      com.example.is-beta= \</span></span><br><span class="line"><span class="bash">      com.example.is-production=<span class="string">""</span> \</span></span><br><span class="line"><span class="bash">      com.example.version=<span class="string">"0.0.1-beta"</span> \</span></span><br><span class="line"><span class="bash">      com.example.release-date=<span class="string">"2015-02-12"</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h4><p>为了使您Dockerfile更易于阅读，可理解和可维护，可以将RUN多个行分隔开，用反斜杠分隔的长整型或复杂语句。</p>
+<h4 id="APT-GET"><a href="#APT-GET" class="headerlink" title="APT-GET"></a>APT-GET</h4><p>可能最常见的用例RUN是应用程序<code>apt-get</code>。该 <code>RUN apt-get</code>命令用来安装软件包<br>避免，<code>RUN apt-get upgrade</code>或者<code>dist-upgrade</code>父系image中的许多“必需”程序包将无法在非特权的容器内升级</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">        package-bar \</span></span><br><span class="line"><span class="bash">        package-baz \</span></span><br><span class="line"><span class="bash">        package-foo</span></span><br></pre></td></tr></table></figure>
+<p>apt-get update在RUN语句中单独使用会导致缓存问题和后续apt-get install指令失败,例如:</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update</span></span><br><span class="line"><span class="bash">RUN apt-get install -y curl</span></span><br></pre></td></tr></table></figure>
+<p>构建图像后，所有层都在Docker缓存中。假设你以后apt-get install通过添加额外的包来修改：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> ubuntu:<span class="number">14.04</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update</span></span><br><span class="line"><span class="bash">RUN apt-get install -y curl nginx</span></span><br></pre></td></tr></table></figure>
+<p>Docker将初始化和修改的指令看作是相同的，并重用先前步骤中的缓存。结果apt-get update是不执行，因为构建使用缓存的版本。因为apt-get update没有运行，你的构建可能会有一个过时的版本curl和nginx 包。<br>使用<code>RUN apt-get update &amp;&amp; apt-get install -y</code>确保您的<code>Docker文件</code>安装最新的软件包版本，无需进一步的编码或手动干预。这种技术被称为<code>“缓存破坏”</code>。您还可以通过指定软件包版本来实现缓存清除。这被称为版本固定，版本固定强制构建以检索特定版本，而不管缓存中有什么。这种技术还可以减少由于所需软件包中意外的更改导致的故障。例如：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">        package-bar \</span></span><br><span class="line"><span class="bash">        package-baz \</span></span><br><span class="line"><span class="bash">        package-foo=1.3.*</span></span><br></pre></td></tr></table></figure>
+<p>下是一个格式正确的RUN指导，显示所有apt-get</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y \</span></span><br><span class="line"><span class="bash">    aufs-tools \</span></span><br><span class="line"><span class="bash">    automake \</span></span><br><span class="line"><span class="bash">    build-essential \</span></span><br><span class="line"><span class="bash">    curl \</span></span><br><span class="line"><span class="bash">    dpkg-sig \</span></span><br><span class="line"><span class="bash">    libcap-dev \</span></span><br><span class="line"><span class="bash">    libsqlite3-dev \</span></span><br><span class="line"><span class="bash">    mercurial \</span></span><br><span class="line"><span class="bash">    reprepro \</span></span><br><span class="line"><span class="bash">    ruby1.9.1 \</span></span><br><span class="line"><span class="bash">    ruby1.9.1-dev \</span></span><br><span class="line"><span class="bash">    s3cmd=1.1.* \</span></span><br><span class="line"><span class="bash"> &amp;&amp; rm -rf /var/lib/apt/lists/*</span></span><br></pre></td></tr></table></figure>
+<h4 id="USING-PIPES"><a href="#USING-PIPES" class="headerlink" title="USING PIPES"></a>USING PIPES</h4><p>一些RUN命令取决于使用管道字符（<code>|</code>）将一个命令的输出管道传输到另一个命令的能力</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> wget -O - https://some.site | wc -l &gt; /number</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Docker使用/bin/sh -c解释器执行这些命令，该解释器仅评估管道中最后一个操作的退出代码以确定成功。在上面的示例中，只要wc -l命令成功，即使wget命令失败，此构建步骤也可以成功并生成新映像。</li>
+<li>您希望命令由于管道中任何阶段的错误而失败，请先set -o pipefail &amp;&amp;确定一个意外的错误会阻止构建从无意中成功。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">set</span> -o pipefail &amp;&amp; wget -O - https://some.site | wc -l &gt; /number</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>注意</code>：并非所有的shell都支持该<code>-o pipefail</code>选项。在这种情况下（例如<code>dash shell</code>，它是基于<code>Debian</code>的映像的默认<code>shell</code>），请考虑使用<code>exec</code>形式<code>RUN</code>来显式选择一个支持该<code>pipefail</code>选项的shell 。</p>
+</blockquote>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> [<span class="string">"/bin/bash"</span>, <span class="string">"-c"</span>, <span class="string">"set -o pipefail &amp;&amp; wget -O - https://some.site | wc -l &gt; /number"</span>]</span></span><br></pre></td></tr></table></figure>
+<h4 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h4><p><code>CMD</code>指令应用于运行图像包含的软件以及任何参数。<br>如果图像用于服务，例如Apache和Rails，则可以运行类似的操作<code>CMD [&quot;apache2&quot;,&quot;-DFOREGROUND&quot;]</code>。这种形式的指令是推荐用于任何基于服务的图像。<br><code>CMD</code>应该给出一个交互式的<code>shell</code>，比如<code>bash</code>，<code>python</code>和<code>perl</code>。例如，<code>CMD [&quot;perl&quot;, &quot;-de0&quot;]</code>，<code>CMD [&quot;python&quot;]</code>，或 <code>CMD [“php”, “-a”]</code>。使用此表单意味着当您执行类似的操作时<code>docker run -it python</code>，您将被放入可用的<code>shell</code>中，随时可以使用。</p>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><p><code>EXPOSE</code>指令指示容器将侦听连接的端口.例如，包含Apache Web服务器EXPOSE 80的映像将使用，而包含MongoDB的映像将使用EXPOSE 27017等等</p>
+<h4 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h4><p>为了使新的软件更容易运行，您可以使用它<code>ENV</code>来更新<code>PATH</code>容器安装的软件的 环境变量。例如，<code>ENV PATH /usr/local/nginx/bin:$PATH</code>将确保<code>CMD [“nginx”]</code> 只是工作。<br>该ENV指令对于提供特定于要集中化的服务的必需环境变量也很有用，例如Postgres’s PGDATA。<br>最后，ENV也可以用来设置常用的版本号，使得版本颠覆更容易维</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> PG_MAJOR <span class="number">9.3</span></span><br><span class="line"><span class="keyword">ENV</span> PG_VERSION <span class="number">9.3</span>.<span class="number">4</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> curl -SL http://example.com/postgres-<span class="variable">$PG_VERSION</span>.tar.xz | tar -xJC /usr/src/postgress &amp;&amp; …</span></span><br><span class="line"><span class="bash">ENV PATH /usr/<span class="built_in">local</span>/postgres-<span class="variable">$PG_MAJOR</span>/bin:<span class="variable">$PATH</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="ADD-or-COPY"><a href="#ADD-or-COPY" class="headerlink" title="ADD or COPY"></a>ADD or COPY</h4><p><code>ADD</code>  和 <code>COPY</code> 的功能有点类似,但是一般优先采用<code>COPY</code>, 因为它更加透明.<br>COPY只支持将本地文件基本复制到容器中，同时ADD具有一些不是立即显而易见的功能（如本地仅提取和远程URL支持）。因此，最好的用途ADD是将本地<code>tar</code>文件自动提取到图像中，如同 <code>ADD rootfs.tar.xz /</code>。<br>因为图像大小很重要，ADD因此强烈不鼓励使用远程URL提取包; 你应该使用curl或wget替代。这样，您可以删除在解压后不再需要的文件，而不必在图像中添加另一个图层.</p>
+<h5 id="错误实例"><a href="#错误实例" class="headerlink" title="错误实例"></a>错误实例</h5><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ADD</span><span class="bash"> http://example.com/big.tar.xz /usr/src/things/</span></span><br><span class="line"><span class="bash">RUN tar -xJf /usr/src/things/big.tar.xz -C /usr/src/things</span></span><br><span class="line"><span class="bash">RUN make -C /usr/src/things all</span></span><br></pre></td></tr></table></figure>
+<h5 id="正确实例"><a href="#正确实例" class="headerlink" title="正确实例"></a>正确实例</h5><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash"> mkdir -p /usr/src/things \</span></span><br><span class="line"><span class="bash">    &amp;&amp; curl -SL http://example.com/big.tar.xz \</span></span><br><span class="line"><span class="bash">    | tar -xJC /usr/src/things \</span></span><br><span class="line"><span class="bash">    &amp;&amp; make -C /usr/src/things all</span></span><br></pre></td></tr></table></figure>
+<h4 id="ENTRYPOINT"><a href="#ENTRYPOINT" class="headerlink" title="ENTRYPOINT"></a>ENTRYPOINT</h4><h4 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h4><p>该VOLUME指令应用于公开您的docker容器创建的任何数据库存储区域，配置存储或文件/文件夹。强烈建议您使用图像VOLUME的任何可变和/或用户可维修的部分。</p>
+<h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><h4 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h4><p>为了清晰可靠，您应该永远为您使用绝对路径 WORKDIR。此外，您应该使用，WORKDIR而不是增加的说明，如RUN cd … &amp;&amp; do-something难以阅读，排除故障和维护</p>
+<h4 id="ONBUILD"><a href="#ONBUILD" class="headerlink" title="ONBUILD"></a>ONBUILD</h4><p><code>ONBUILD</code>命令在当前<code>Dockerfile</code>构建完成后执行。 ONBUILD在导出FROM当前图像的任何子图像中执行。将该ONBUILD命令视为父母Dockerfile给予孩子的指示Dockerfile。<br>Docker构建<code>ONBUILD</code>在子节点<code>Dockerfile</code>中的任何命令之前执行命令。<br>放入ADD或COPY放入时要小心ONBUILD。如果新版本的上下文缺少添加的资源，“onbuild”映像将会严重失败。如上所述，添加单独的标签将有助于通过允许Dockerfile作者做出选择来缓解这一点</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+            <a href="/tags/入门/" rel="tag"># 入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/14/docker/Docker Swarm/" rel="next" title="Docker Swarm">
+                <i class="fa fa-chevron-left"></i> Docker Swarm
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/20/docker/上传image/" rel="prev" title="上传 Docker Image">
+                上传 Docker Image <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bf36903b22e9404" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/iocn.png" alt="Carzy">
+            
+              <p class="site-author-name" itemprop="name">Carzy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/DongCarzy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="394163807@qq.com" target="_blank" title="QQ-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>QQ-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="dongxinpingwh@gmail.com" target="_blank" title="G-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>G-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://coding.net/u/carzy" target="_blank" title="Coding">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Coding</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="百度" target="_blank">百度</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com" title="GITHUB" target="_blank">GITHUB</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编写Dockerfiles的最佳做法"><span class="nav-number">1.</span> <span class="nav-text">编写Dockerfiles的最佳做法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般准则和建议"><span class="nav-number">1.1.</span> <span class="nav-text">一般准则和建议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#容器应该是精简的"><span class="nav-number">1.1.1.</span> <span class="nav-text">容器应该是精简的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-dockerignore文件"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用.dockerignore文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#避免安装不必要的包"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">避免安装不必要的包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器单纯化"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">容器单纯化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最小化层数"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">最小化层数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序多行参数"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">排序多行参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建缓存"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">构建缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile指令"><span class="nav-number">1.1.3.</span> <span class="nav-text">Dockerfile指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LABEL"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">LABEL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RUN"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">RUN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#APT-GET"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">APT-GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USING-PIPES"><span class="nav-number">1.1.3.5.</span> <span class="nav-text">USING PIPES</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMD"><span class="nav-number">1.1.3.6.</span> <span class="nav-text">CMD</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPOSE"><span class="nav-number">1.1.3.7.</span> <span class="nav-text">EXPOSE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ENV"><span class="nav-number">1.1.3.8.</span> <span class="nav-text">ENV</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ADD-or-COPY"><span class="nav-number">1.1.3.9.</span> <span class="nav-text">ADD or COPY</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#错误实例"><span class="nav-number">1.1.3.9.1.</span> <span class="nav-text">错误实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#正确实例"><span class="nav-number">1.1.3.9.2.</span> <span class="nav-text">正确实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ENTRYPOINT"><span class="nav-number">1.1.3.10.</span> <span class="nav-text">ENTRYPOINT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#VOLUME"><span class="nav-number">1.1.3.11.</span> <span class="nav-text">VOLUME</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USER"><span class="nav-number">1.1.3.12.</span> <span class="nav-text">USER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WORKDIR"><span class="nav-number">1.1.3.13.</span> <span class="nav-text">WORKDIR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ONBUILD"><span class="nav-number">1.1.3.14.</span> <span class="nav-text">ONBUILD</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Carzy</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <!-- <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>  -->
+
+	<link rel="stylesheet" href="https://dongcarzy.github.io/css/gitalk.css">
+	<script src="https://dongcarzy.github.io/js/gitalk.min.js"></script>
+
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: '9a2cb077d9546b2c88db',
+		  clientSecret: 'f7c4dfd1513162fb2e3093af5a88d0017502357c',
+		  repo: 'gitment',
+		  owner: 'DongCarzy',
+		  admin: ['DongCarzy'], 
+		  id: location.pathname,
+		  distractionFreeMode: 'true'
+		})
+		gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LnBs8Dwi71f7eOd5Lrr7ckpm-gzGzoHsz", "hctSr7z4MU81335H5vXSIMh4");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

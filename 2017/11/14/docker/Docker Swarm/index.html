@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="docker,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Carzy" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Docker Swarm A swarm is a group of machines that are running Docker and joined into a cluster. After that has happened, you continue to run the Docker commands you’re used to, but now they are execute">
+<meta name="keywords" content="docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker Swarm">
+<meta property="og:url" content="http://yoursite.com/2017/11/14/docker/Docker Swarm/index.html">
+<meta property="og:site_name" content="Carzy">
+<meta property="og:description" content="Docker Swarm A swarm is a group of machines that are running Docker and joined into a cluster. After that has happened, you continue to run the Docker commands you’re used to, but now they are execute">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/11/14/docker/Docker%20Swarm/docker%20searm.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/11/14/docker/Docker%20Swarm/swarm架构.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/11/14/docker/Docker%20Swarm/docker-mechine.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/14/docker/Docker%20Swarm/network.png">
+<meta property="og:updated_time" content="2018-11-16T03:26:15.335Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker Swarm">
+<meta name="twitter:description" content="Docker Swarm A swarm is a group of machines that are running Docker and joined into a cluster. After that has happened, you continue to run the Docker commands you’re used to, but now they are execute">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/14/docker/Docker%20Swarm/docker%20searm.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/14/docker/Docker Swarm/">
+
+
+
+
+
+  <title>Docker Swarm | Carzy</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Carzy</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">做自己</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-post" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/14/docker/Docker Swarm/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Carzy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/iocn.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Carzy">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Docker Swarm</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-14T16:13:57+08:00">
+                2017-11-14
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-16T11:26:15+08:00">
+                2018-11-16
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/14/docker/Docker Swarm/" class="leancloud_visitors" data-flag-title="Docker Swarm">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Docker-Swarm"><a href="#Docker-Swarm" class="headerlink" title="Docker Swarm"></a>Docker Swarm</h1><blockquote>
+<p>A swarm is a group of machines that are running Docker and joined into a cluster. After that has happened, you continue to run the Docker commands you’re used to, but now they are executed on a cluster by a <code>swarm manager</code>. The machines in a swarm can be physical or virtual. After joining a swarm, they are referred to as <code>nodes</code>.</p>
+</blockquote>
+<h2 id="Swarm是什么"><a href="#Swarm是什么" class="headerlink" title="Swarm是什么"></a>Swarm是什么</h2><blockquote>
+<p>通过把多个Docker Engine聚集在一起，形成一个大的docker-engine，对外提供容器的集群服务。同时这个集群对外提供Swarm API，用户可以像使用Docker Engine一样使用Docker集群。</p>
+</blockquote>
+<p><img src="/2017/11/14/docker/Docker Swarm/docker searm.jpg" alt="docker searm"></p>
+<h2 id="Swarm-特点"><a href="#Swarm-特点" class="headerlink" title="Swarm 特点"></a>Swarm 特点</h2><ol>
+<li>对外以Docker API接口呈现，这样带来的好处是，如果现有系统使用Docker Engine，则可以平滑将Docker Engine切到Swarm上，无需改动现有系统。</li>
+<li>Swarm对用户来说，之前使用Docker的经验可以继承过来。非常容易上手，学习成本和二次开发成本都比较低。同时Swarm本身专注于Docker集群管理，非常轻量，占用资源也非常少。</li>
+<li><code>Batteries included but swappable</code>，简单说，就是插件化机制，Swarm中的各个模块都抽象出了API，可以根据自己一些特点进行定制实现。</li>
+<li>Swarm自身对Docker命令参数支持的比较完善，Swarm目前与Docker是同步发布的。Docker的新功能，都会第一时间在Swarm中体现。</li>
+</ol>
+<hr>
+<h2 id="Swarm框架结构"><a href="#Swarm框架结构" class="headerlink" title="Swarm框架结构"></a>Swarm框架结构</h2><p><img src="/2017/11/14/docker/Docker Swarm/swarm架构.jpg" alt="swarm架构"></p>
+<ul>
+<li>Swarm对外提供两种API， 一种是Docker API，用于负责容器镜像的生命周期管理， 另外一种是Swarm集群管理CLI，用于集群理。</li>
+<li>Scheduler模块，主要实现调度功能。在通过Swarm创建容器时，会经过Scheduler模块选择出一个最优节点，里面包含了两个子模块，分别是Filter和Strategy， Filter用来过滤节点，找出满足条件的节点（比如资源足够，节点正常等等），Strategy用来在过滤出的节点中根据策略选择一个最优的节点（比如对找出的节点进行对比，找到资源最多的节点等等）, 当然Filter/Strategy用户可以定制。</li>
+<li>Swarm对集群进行了抽象，抽象出了Cluster API，Swarm支持两种集群，一种是Swarm自身的集群，另外一种基于Mesos的集群。</li>
+<li>LeaderShip模块用于Swarm Manager自身的HA，通过主备方式实现。</li>
+<li>Discovery Service 服务发现模块，这个模块主要用来提供节点发现功能。</li>
+<li>在每一个节点上，都会有一个Agent，用于连接Discovery Service，上报Docker Daemon的IP端口信息，Swarm Manager会直接从服务发现模块中读取节点信息。</li>
+</ul>
+<hr>
+<h2 id="创建群集-docker-for-windows"><a href="#创建群集-docker-for-windows" class="headerlink" title="创建群集 (docker for windows)"></a>创建群集 (docker for windows)</h2><blockquote>
+<p>本案例用的是 win10 的 <code>hyper-V</code> 功能<br>mac,linux,windows7/8 参考官网: <a href="https://docs.docker.com/get-started/part4/#understanding-swarm-clusters" target="_blank" rel="noopener">https://docs.docker.com/get-started/part4/#understanding-swarm-clusters</a></p>
+</blockquote>
+<h3 id="利用-hyper-v-在你的机器上创建两个docker-环境"><a href="#利用-hyper-v-在你的机器上创建两个docker-环境" class="headerlink" title="利用 hyper-v 在你的机器上创建两个docker 环境"></a>利用 <code>hyper-v</code> 在你的机器上创建两个docker 环境</h3><ol>
+<li>启用 <code>Hyper-V</code> 管理器</li>
+<li>点击虚拟交换机管理,创建一个 <code>外部</code> 类型的虚拟交换机</li>
+<li>给你的虚拟交换机取名 <code>myswitch</code></li>
+<li>create a couple of VMs using our node management tool,<code>docker-machine</code></li>
+<li>发现下载 <code>boot2docker.iso</code> 失败或者超时, 可到这个地址下载 <code>https://github.com/boot2docker/boot2docker/releases/download/v17.06.2-ce/boot2docker.iso</code> 然后将它放在你的 个人资源管理器 <code>\.docker\machine\cache</code>, 例如我的: <code>C:\Users\carzy\.docker\machine\cache</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker-machine create -d hyperv --hyperv-virtual-switch <span class="string">"myswitch"</span> myvm1</span><br><span class="line">docker-machine create -d hyperv --hyperv-virtual-switch <span class="string">"myswitch"</span> myvm2</span><br><span class="line"><span class="comment"># 此过程很慢</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看刚刚创建的虚拟docker列表和IP"><a href="#查看刚刚创建的虚拟docker列表和IP" class="headerlink" title="查看刚刚创建的虚拟docker列表和IP"></a>查看刚刚创建的虚拟docker列表和IP</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ls `</span><br><span class="line">NAME    ACTIVE   DRIVER   STATE     URL                         SWARM   DOCKER</span><br><span class="line">myvm1   -        hyperv   Running   tcp://192.168.68.116:2376           v17.06.2-ce</span><br><span class="line">myvm2   -        hyperv   Running   tcp://192.168.68.114:2376           v17.06.2-ce</span><br></pre></td></tr></table></figure>
+<!-- ![zdtl0fg1ks9ejyvi](\:storage\zdtl0fg1ks9ejyvi.png) -->
+<h3 id="启动群集添加节点"><a href="#启动群集添加节点" class="headerlink" title="启动群集添加节点"></a>启动群集添加节点</h3><blockquote>
+<p>第一台机器将作为 <code>manager</code> ，执行管理指令和认证人员加入群，和第二将作为 <code>worker</code></p>
+</blockquote>
+<ul>
+<li><code>docker-machine ssh</code> 登录你的第一个 VM, 并将 <code>myvm1</code> 指定为 <code>manager</code> : <code>docker swarm init</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh myvm1 <span class="string">"docker swarm init --advertise-addr &lt;myvm1 ip&gt;"</span></span><br><span class="line"></span><br><span class="line">docker@myvm1:~$ docker swarm init</span><br><span class="line">Swarm initialized: current node (pdi85vh4w3p5243qgiiaoz6cn) is now a manager.</span><br><span class="line"></span><br><span class="line">To add a worker to this swarm, run the following <span class="built_in">command</span>:</span><br><span class="line"></span><br><span class="line">    docker swarm join --token SWMTKN-1-3r3xispwm7cbu0k8orry0k9dyn7if9agk2gkwrxilefrh5jfmu-3qzklzdzedh5yxinsi9q77xqt 192.168.68.116:2377</span><br><span class="line"></span><br><span class="line">To add a manager to this swarm, run <span class="string">'docker swarm join-token manager'</span> and follow the instructions.</span><br></pre></td></tr></table></figure>
+<p><img src="/2017/11/14/docker/Docker Swarm/docker-mechine.png" alt="docker-mechine"></p>
+<blockquote>
+<p><strong>端口2377和2376</strong><br>始终运行 <code>docker swarm init</code>和 <code>docker swarm join</code> 端口2377（群组管理端口），或使其为默认值。<br>返回的机器IP地址 <code>docker-machine ls</code> 包括端口2376，它是Docker守护程序端口。不要使用这个端口，否则 可能会遇&gt; 到错误。</p>
+</blockquote>
+<ul>
+<li>响应 <code>docker swarm init</code>包含预先配置的 <code>docker swarm join</code>命令(上条docker swarm init 提示的 <code>token</code>)，以便您在要添加的任何节点上运行。复制此命令，并将其发送到myvm2, <code>docker-machine ssh</code> 让myvm2 加入您的新群组作为<code>worker</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker swarm join --token SWMTKN-1-3r3xispwm7cbu0k8orry0k9dyn7if9agk2gkwrxilefrh5jfmu-3qzklzdzedh5yxinsi9q77xqt 192.168.68.116:2377</span><br><span class="line"></span><br><span class="line">This node joined a swarm as a worker.</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>docker node ls</code> 在管理器上运行以查看此群组中的节点</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PS E:\dockerWork\demo1&gt; docker-machine ssh myvm1 <span class="string">"docker node ls"</span></span><br><span class="line">ID                            HOSTNAME            STATUS              AVAILABILITY          MANAGER STATUS</span><br><span class="line">pdi85vh4w3p5243qgiiaoz6cn *           myvm1               Ready               Active              Leader</span><br><span class="line">tra1o8vdg9y4z16uv0nl731y8            myvm2               Ready               Active</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>离开群</code><br>如果要重新开始，可以从每个节点运行 <code>docker swarm leave</code></p>
+</blockquote>
+<hr>
+<h3 id="部署应用"><a href="#部署应用" class="headerlink" title="部署应用"></a>部署应用</h3><h4 id="将docker-machineshell-配置为群组管理器"><a href="#将docker-machineshell-配置为群组管理器" class="headerlink" title="将docker-machineshell 配置为群组管理器"></a>将docker-machineshell 配置为群组管理器</h4><blockquote>
+<p>到目前为止，已经将Docker的commmands包装在 <code>docker-machine ssh</code>与VM进行通话。另一个选项是运行 <code>docker-machine env &lt;machine&gt;</code> 以获取并运行一个配置当前shell的命令来与虚拟机上的 <code>Docker守护程序</code> 通信。它允许使用本地docker-compose.yml文件“远程”部署应用程序，而无需将其复制到任何位置。</p>
+<ul>
+<li>Run <code>docker-machine env myvm1</code> to get the command to configure your shell to talk to myvm1.</li>
+<li>Run the given command to configure your shell to talk to myvm1</li>
+<li>Run <code>docker-machine ls</code> to verify that myvm1 is the active machine as indicated by <code>*</code> next to it</li>
+</ul>
+</blockquote>
+<!-- ![o7iuh7wvy10885mi](\:storage\o7iuh7wvy10885mi.png) -->
+<h4 id="开始部署"><a href="#开始部署" class="headerlink" title="开始部署"></a>开始部署</h4><ul>
+<li>现在你有我的myvm1，你可以使用<code>myvm1</code> 的权力作为一个群组管理器来部署您的应用程序，使用 <code>docker stack deploy</code> 命令，运行 <code>docker-stack.yml</code>.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stack deploy -c docker-compose.yml <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<h4 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h4><ul>
+<li><code>docker service ps test</code> 可以看到5个容器，分别运行在 myvm1 和 myvm2 上</li>
+<li>通过浏览器访问任意一个 ip 的，都可以看见 5 个 不同的 ID</li>
+<li>IP地址工作的原因是群集中的 <code>nodes</code> 加入 <code>ingress network routing mesh</code> 。这样可以确保在群集中某个端口部署的服务始终将该端口保留给其自身，无论实际运行的是哪个节点。以下是在三节点群集my-web端口8080上发布的服务的路由网格如何显示：<br><img src="/2017/11/14/docker/Docker Swarm/network.png" alt="network"></li>
+</ul>
+<blockquote>
+<p><strong>连通问题</strong><br>为了在群集中使用入口网络 <code>ingress network</code> ，在启用群组模式之前，需要在群集节点之间打开以下端口</p>
+<ul>
+<li>端口7946 TCP / UDP用于容器网络发现。</li>
+<li>端口4789 UDP用于容器入口网络.</li>
+</ul>
+</blockquote>
+<h3 id="迭代和缩放您的应用程序"><a href="#迭代和缩放您的应用程序" class="headerlink" title="迭代和缩放您的应用程序"></a>迭代和缩放您的应用程序</h3><ol>
+<li>通过更改docker-compose.yml文件来缩放应用程序</li>
+<li>通过编辑代码来更改应用程序行为<ul>
+<li>在这两种情况下，只需 <code>docker stack deploy</code> 再次运行以部署这些更改.</li>
+<li>您可以使用与 <code>docker swarm join</code> 您使用的相同的命令将任何物理或虚拟机加入此群集 <code>myvm2</code> ，并将容量添加到群集中。<code>docker stack deploy</code> 运行后，您的应用程序将利用新的资源。</li>
+</ul>
+</li>
+</ol>
+<h3 id="清理"><a href="#清理" class="headerlink" title="清理"></a>清理</h3><p>使用 <code>docker stack rm</code> 进行清理所有这个stack</p>
+<blockquote>
+<p><em>Keep the swarm or remove it</em><br><code>docker-machine ssh myvm2 &quot;docker swarm leave&quot;</code> 将 myvm2  从swarm的 <code>worker</code> 中移除<br><code>docker-machine ssh myvm1 &quot;docker swarm leave --force</code> myvm1 从 swarm的 <code>manager</code> 中移除</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/14/docker/docker stack/" rel="next" title="docker stack">
+                <i class="fa fa-chevron-left"></i> docker stack
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/16/docker/makeDockerfile/" rel="prev" title="Dockerfiles的最佳实践">
+                Dockerfiles的最佳实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<div class="addthis_inline_share_toolbox">
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5bf36903b22e9404" async="async"></script>
+</div>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div id="gitalk-container"></div>
+
+  
+
+
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/iocn.png" alt="Carzy">
+            
+              <p class="site-author-name" itemprop="name">Carzy</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/DongCarzy" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="394163807@qq.com" target="_blank" title="QQ-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>QQ-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="dongxinpingwh@gmail.com" target="_blank" title="G-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>G-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://coding.net/u/carzy" target="_blank" title="Coding">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Coding</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="百度" target="_blank">百度</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://github.com" title="GITHUB" target="_blank">GITHUB</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Swarm"><span class="nav-number">1.</span> <span class="nav-text">Docker Swarm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Swarm是什么"><span class="nav-number">1.1.</span> <span class="nav-text">Swarm是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swarm-特点"><span class="nav-number">1.2.</span> <span class="nav-text">Swarm 特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swarm框架结构"><span class="nav-number">1.3.</span> <span class="nav-text">Swarm框架结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建群集-docker-for-windows"><span class="nav-number">1.4.</span> <span class="nav-text">创建群集 (docker for windows)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用-hyper-v-在你的机器上创建两个docker-环境"><span class="nav-number">1.4.1.</span> <span class="nav-text">利用 hyper-v 在你的机器上创建两个docker 环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看刚刚创建的虚拟docker列表和IP"><span class="nav-number">1.4.2.</span> <span class="nav-text">查看刚刚创建的虚拟docker列表和IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动群集添加节点"><span class="nav-number">1.4.3.</span> <span class="nav-text">启动群集添加节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署应用"><span class="nav-number">1.4.4.</span> <span class="nav-text">部署应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将docker-machineshell-配置为群组管理器"><span class="nav-number">1.4.4.1.</span> <span class="nav-text">将docker-machineshell 配置为群组管理器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开始部署"><span class="nav-number">1.4.4.2.</span> <span class="nav-text">开始部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检测"><span class="nav-number">1.4.4.3.</span> <span class="nav-text">检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代和缩放您的应用程序"><span class="nav-number">1.4.5.</span> <span class="nav-text">迭代和缩放您的应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理"><span class="nav-number">1.4.6.</span> <span class="nav-text">清理</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Carzy</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"> -->
+  <!-- <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>  -->
+
+	<link rel="stylesheet" href="https://dongcarzy.github.io/css/gitalk.css">
+	<script src="https://dongcarzy.github.io/js/gitalk.min.js"></script>
+
+   <script type="text/javascript">
+		var gitalk = new Gitalk({
+		  clientID: '9a2cb077d9546b2c88db',
+		  clientSecret: 'f7c4dfd1513162fb2e3093af5a88d0017502357c',
+		  repo: 'gitment',
+		  owner: 'DongCarzy',
+		  admin: ['DongCarzy'], 
+		  id: location.pathname,
+		  distractionFreeMode: 'true'
+		})
+		gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("LnBs8Dwi71f7eOd5Lrr7ckpm-gzGzoHsz", "hctSr7z4MU81335H5vXSIMh4");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
