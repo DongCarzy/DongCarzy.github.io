@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/12/14/DB/redis-jedis/</loc>
+    
+    <lastmod>2018-11-21T03:37:48.102Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/03/16/DB/PL_SQL/</loc>
+    
+    <lastmod>2018-11-21T03:37:44.439Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/11/14/DB/docker_create_db/</loc>
+    
+    <lastmod>2018-11-21T03:37:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2017/06/14/DB/DB%E9%94%81/</loc>
+    
+    <lastmod>2018-11-21T03:37:31.670Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/11/19/springboot/spring-session/</loc>
     
     <lastmod>2018-11-19T10:09:48.207Z</lastmod>
@@ -51,30 +79,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2017/03/16/DB/PL_SQL/</loc>
-    
-    <lastmod>2018-11-16T09:55:01.614Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/2017/11/16/docker/makeDockerfile/</loc>
     
     <lastmod>2018-11-16T09:51:06.624Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/11/14/DB/docker_create_db/</loc>
-    
-    <lastmod>2018-11-16T09:50:22.559Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2017/06/14/DB/DB%E9%94%81/</loc>
-    
-    <lastmod>2018-11-16T09:47:14.997Z</lastmod>
     
   </url>
   
@@ -131,13 +138,6 @@
     <loc>http://yoursite.com/2017/11/10/docker/Docker%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2018-11-16T02:28:19.618Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/12/14/DB/redis-jedis/</loc>
-    
-    <lastmod>2018-11-16T02:04:19.722Z</lastmod>
     
   </url>
   
