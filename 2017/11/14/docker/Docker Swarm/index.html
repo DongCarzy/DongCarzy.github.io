@@ -128,15 +128,15 @@
 <meta property="og:site_name" content="Carzy">
 <meta property="og:description" content="Docker Swarm A swarm is a group of machines that are running Docker and joined into a cluster. After that has happened, you continue to run the Docker commands you’re used to, but now they are execute">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/docker%20searm.jpg">
-<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/swarm架构.jpg">
-<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/docker-mechine.png">
-<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/network.png">
-<meta property="og:updated_time" content="2018-11-16T03:26:15.335Z">
+<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/Docker%20Swarm/docker%20searm.jpg">
+<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/Docker%20Swarm/swarm架构.jpg">
+<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/Docker%20Swarm/docker-mechine.png">
+<meta property="og:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/Docker%20Swarm/network.png">
+<meta property="og:updated_time" content="2018-11-16T03:26:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker Swarm">
 <meta name="twitter:description" content="Docker Swarm A swarm is a group of machines that are running Docker and joined into a cluster. After that has happened, you continue to run the Docker commands you’re used to, but now they are execute">
-<meta name="twitter:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/docker%20searm.jpg">
+<meta name="twitter:image" content="https://dongcarzy.github.io/2017/11/14/docker/Docker%20Swarm/Docker%20Swarm/docker%20searm.jpg">
 
 
 
@@ -396,7 +396,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-11-16T11:26:15+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-11-16T11:26:16+08:00">
                 2018-11-16
               </time>
             
@@ -469,7 +469,7 @@
 <h2 id="Swarm是什么"><a href="#Swarm是什么" class="headerlink" title="Swarm是什么"></a>Swarm是什么</h2><blockquote>
 <p>通过把多个Docker Engine聚集在一起，形成一个大的docker-engine，对外提供容器的集群服务。同时这个集群对外提供Swarm API，用户可以像使用Docker Engine一样使用Docker集群。</p>
 </blockquote>
-<p><img src="/2017/11/14/docker/Docker Swarm/docker searm.jpg" alt="docker searm"></p>
+<p><img src="Docker Swarm/docker searm.jpg" alt="docker searm"></p>
 <h2 id="Swarm-特点"><a href="#Swarm-特点" class="headerlink" title="Swarm 特点"></a>Swarm 特点</h2><ol>
 <li>对外以Docker API接口呈现，这样带来的好处是，如果现有系统使用Docker Engine，则可以平滑将Docker Engine切到Swarm上，无需改动现有系统。</li>
 <li>Swarm对用户来说，之前使用Docker的经验可以继承过来。非常容易上手，学习成本和二次开发成本都比较低。同时Swarm本身专注于Docker集群管理，非常轻量，占用资源也非常少。</li>
@@ -477,7 +477,7 @@
 <li>Swarm自身对Docker命令参数支持的比较完善，Swarm目前与Docker是同步发布的。Docker的新功能，都会第一时间在Swarm中体现。</li>
 </ol>
 <hr>
-<h2 id="Swarm框架结构"><a href="#Swarm框架结构" class="headerlink" title="Swarm框架结构"></a>Swarm框架结构</h2><p><img src="/2017/11/14/docker/Docker Swarm/swarm架构.jpg" alt="swarm架构"></p>
+<h2 id="Swarm框架结构"><a href="#Swarm框架结构" class="headerlink" title="Swarm框架结构"></a>Swarm框架结构</h2><p><img src="Docker Swarm/swarm架构.jpg" alt="swarm架构"></p>
 <ul>
 <li>Swarm对外提供两种API， 一种是Docker API，用于负责容器镜像的生命周期管理， 另外一种是Swarm集群管理CLI，用于集群理。</li>
 <li>Scheduler模块，主要实现调度功能。在通过Swarm创建容器时，会经过Scheduler模块选择出一个最优节点，里面包含了两个子模块，分别是Filter和Strategy， Filter用来过滤节点，找出满足条件的节点（比如资源足够，节点正常等等），Strategy用来在过滤出的节点中根据策略选择一个最优的节点（比如对找出的节点进行对比，找到资源最多的节点等等）, 当然Filter/Strategy用户可以定制。</li>
@@ -507,7 +507,7 @@
 <li><code>docker-machine ssh</code> 登录你的第一个 VM, 并将 <code>myvm1</code> 指定为 <code>manager</code> : <code>docker swarm init</code></li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">docker-machine ssh myvm1 <span class="string">"docker swarm init --advertise-addr &lt;myvm1 ip&gt;"</span></span><br><span class="line"></span><br><span class="line">docker@myvm1:~$ docker swarm init</span><br><span class="line">Swarm initialized: current node (pdi85vh4w3p5243qgiiaoz6cn) is now a manager.</span><br><span class="line"></span><br><span class="line">To add a worker to this swarm, run the following <span class="built_in">command</span>:</span><br><span class="line"></span><br><span class="line">    docker swarm join --token SWMTKN-1-3r3xispwm7cbu0k8orry0k9dyn7if9agk2gkwrxilefrh5jfmu-3qzklzdzedh5yxinsi9q77xqt 192.168.68.116:2377</span><br><span class="line"></span><br><span class="line">To add a manager to this swarm, run <span class="string">'docker swarm join-token manager'</span> and follow the instructions.</span><br></pre></td></tr></table></figure>
-<p><img src="/2017/11/14/docker/Docker Swarm/docker-mechine.png" alt="docker-mechine"></p>
+<p><img src="Docker Swarm/docker-mechine.png" alt="docker-mechine"></p>
 <blockquote>
 <p><strong>端口2377和2376</strong><br>始终运行 <code>docker swarm init</code>和 <code>docker swarm join</code> 端口2377（群组管理端口），或使其为默认值。<br>返回的机器IP地址 <code>docker-machine ls</code> 包括端口2376，它是Docker守护程序端口。不要使用这个端口，否则 可能会遇&gt; 到错误。</p>
 </blockquote>
@@ -539,7 +539,7 @@
 <h4 id="检测"><a href="#检测" class="headerlink" title="检测"></a>检测</h4><ul>
 <li><code>docker service ps test</code> 可以看到5个容器，分别运行在 myvm1 和 myvm2 上</li>
 <li>通过浏览器访问任意一个 ip 的，都可以看见 5 个 不同的 ID</li>
-<li>IP地址工作的原因是群集中的 <code>nodes</code> 加入 <code>ingress network routing mesh</code> 。这样可以确保在群集中某个端口部署的服务始终将该端口保留给其自身，无论实际运行的是哪个节点。以下是在三节点群集my-web端口8080上发布的服务的路由网格如何显示：<br><img src="/2017/11/14/docker/Docker Swarm/network.png" alt="network"></li>
+<li>IP地址工作的原因是群集中的 <code>nodes</code> 加入 <code>ingress network routing mesh</code> 。这样可以确保在群集中某个端口部署的服务始终将该端口保留给其自身，无论实际运行的是哪个节点。以下是在三节点群集my-web端口8080上发布的服务的路由网格如何显示：<br><img src="Docker Swarm/network.png" alt="network"></li>
 </ul>
 <blockquote>
 <p><strong>连通问题</strong><br>为了在群集中使用入口网络 <code>ingress network</code> ，在启用群组模式之前，需要在群集节点之间打开以下端口</p>
@@ -741,7 +741,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

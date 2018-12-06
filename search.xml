@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[问题列表]]></title>
-    <url>%2F2018%2F11%2F19%2Fjava%2Fproblem%2F</url>
-    <content type="text"><![CDATA[问题列表 平时工作中遇到的问题以及解决办法 计算时差问题 静态Map，Set用作存储并发 获取 spring.profile.active 用户 计算时差问题StopWatch 类提供计时器 12345678910//获取并启动StopWatch sw = StopWatch.createStarted(); = &gt;StopWatch sw = new StopWatch();sw.start();//获取时间sw.getTime();orsw.getTime(TimeUnit.MINUTES); //TimeUnit表示不同时间形式 静态Map，Set用作存储并发采用 ConcurrentHashMap 替 HashMap类似 ConcurrentSkipListSet 替换 HashSet 12Map map = new ConcurrentHashMap();Set&lt;String&gt; set = new ConcurrentSkipListSet&lt;&gt;(); ConcurrentHashMap代码中可以看出，它引入了一个“分段锁”的概念，具体可以理解为把一个大的Map拆分成N个小的HashTable，根据key.hashCode()来决定把key放到哪个HashTable中。 在ConcurrentHashMap中，就是把Map分成了N个Segment，put和get的时候，都是现根据key.hashCode()算出放到哪个Segment中。 获取 spring.profile.active 用户]]></content>
+    <title><![CDATA[logback]]></title>
+    <url>%2F2018%2F12%2F06%2Fjava%2Flogback%2F</url>
+    <content type="text"><![CDATA[Logbackspringboot 中通过 logback-spring.xml自定义配置 logback 日志 文件名在 springboot 系统中，springboot 会默认加载 resource 下的 logback.xml 或者 logback-spring.xml， 但是建议将文件名命名为 logback-spring.xml， 因为logback.xml 会比 application.properties 更早加载， 就会导致在你的日志配置文档中不能使用 application.properties 中的变量 变量对应关系 application.properties logback-spring.xml logging.exception-conversion-word LOG_EXCEPTION_CONVERSION_WORD logging.file LOG_FILE logging.file.max-size LOG_FILE_MAX_SIZE logging.file.max-history LOG_FILE_MAX_HISTORY logging.path LOG_PATH logging.pattern.console CONSOLE_LOG_PATTERN logging.pattern.dateformat LOG_DATEFORMAT_PATTERN logging.pattern.file FILE_LOG_PATTERN logging.pattern.level LOG_LEVEL_PATTERN PID PID 彩色输出 通过 conversionRule 引入 springboot 的规则, 将通过 ansi 码表示我们的颜色 在 application.properties 中开启 ansi 功能 spring.output.ansi.enabled=always 相关配置如下: 123456789&lt;conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/&gt; &lt;conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/&gt; &lt;conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/&gt; &lt;property name="CONSOLE_LOG_PATTERN" value="$&#123;CONSOLE_LOG_PATTERN:-%clr(%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;)&#123;faint&#125; %clr($&#123;LOG_LEVEL_PATTERN:-%5p&#125;) %clr($&#123;PID:- &#125;)&#123;magenta&#125; %clr(---)&#123;faint&#125; %clr([%15.15t])&#123;faint&#125; %clr(%-40.40logger&#123;39&#125;)&#123;cyan&#125; %clr(:)&#123;faint&#125; %m%n$&#123;LOG_EXCEPTION_CONVERSION_WORD:-%wEx&#125;&#125;"/&gt; &lt;property name="FILE_LOG_PATTERN" value="$&#123;FILE_LOG_PATTERN:-%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; $&#123;LOG_LEVEL_PATTERN:-%5p&#125; $&#123;PID:- &#125; --- [%t] %-40.40logger&#123;39&#125; : %m%n$&#123;LOG_EXCEPTION_CONVERSION_WORD:-%wEx&#125;&#125;"/&gt; 日志回滚打包通过 rollingPolicy 标签来达到回滚打包，规则有很多中，可参考 logbak官网，以下是我完整的配置 ${LOG_PATH} 是引用的 application.properties中的属性 logging.path 输出格式 pattern 可自行参考官网，这里我是按照 springboot 默认格式输出，来源： org/springframework/boot/logging/logback/defaults.xml 这个文件 最终效果， 当日志 spring.log 文件达到 300M 照是， 就会被压缩成 zip 包，文件名称为 %d{yyyy-MM-dd}.%i.log.zip, 年月日+当天压缩包的序号.log.zip 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;configuration scan="true"&gt; &lt;conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/&gt; &lt;conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/&gt; &lt;conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/&gt; &lt;property name="CONSOLE_LOG_PATTERN" value="$&#123;CONSOLE_LOG_PATTERN:-%clr(%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125;)&#123;faint&#125; %clr($&#123;LOG_LEVEL_PATTERN:-%5p&#125;) %clr($&#123;PID:- &#125;)&#123;magenta&#125; %clr(---)&#123;faint&#125; %clr([%15.15t])&#123;faint&#125; %clr(%-40.40logger&#123;39&#125;)&#123;cyan&#125; %clr(:)&#123;faint&#125; %m%n$&#123;LOG_EXCEPTION_CONVERSION_WORD:-%wEx&#125;&#125;"/&gt; &lt;property name="FILE_LOG_PATTERN" value="$&#123;FILE_LOG_PATTERN:-%d&#123;yyyy-MM-dd HH:mm:ss.SSS&#125; $&#123;LOG_LEVEL_PATTERN:-%5p&#125; $&#123;PID:- &#125; --- [%t] %-40.40logger&#123;39&#125; : %m%n$&#123;LOG_EXCEPTION_CONVERSION_WORD:-%wEx&#125;&#125;"/&gt; &lt;!-- 控制台输出 --&gt; &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt; &lt;encoder&gt; &lt;pattern&gt;$&#123;CONSOLE_LOG_PATTERN&#125;&lt;/pattern&gt; &lt;charset&gt;utf8&lt;/charset&gt; &lt;/encoder&gt; &lt;/appender&gt; &lt;appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt; &lt;file&gt;$&#123;LOG_PATH&#125;/spring.log&lt;/file&gt; &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt; &lt;!--日志文件输出的文件名--&gt; &lt;FileNamePattern&gt;$&#123;LOG_PATH&#125;/%d&#123;yyyy-MM-dd&#125;.%i.log.zip&lt;/FileNamePattern&gt; &lt;!--日志文件保留个数--&gt; &lt;MaxHistory&gt;50&lt;/MaxHistory&gt; &lt;!-- 日志总保存量为10GB --&gt; &lt;totalSizeCap&gt;10GB&lt;/totalSizeCap&gt; &lt;timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"&gt; &lt;!--活动文件大小 --&gt; &lt;maxFileSize&gt;300MB&lt;/maxFileSize&gt; &lt;/timeBasedFileNamingAndTriggeringPolicy&gt; &lt;/rollingPolicy&gt; &lt;encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"&gt; &lt;pattern&gt;$&#123;FILE_LOG_PATTERN&#125;&lt;/pattern&gt; &lt;charset&gt;utf8&lt;/charset&gt; &lt;/encoder&gt; &lt;/appender&gt; &lt;!-- 日志输出默认级别 --&gt; &lt;root level="INFO"&gt; &lt;appender-ref ref="STDOUT"/&gt; &lt;appender-ref ref="FILE"/&gt; &lt;/root&gt; &lt;logger name="com.tonmx" level="DEBUG"/&gt;&lt;/configuration&gt;]]></content>
       <categories>
         <category>java</category>
       </categories>
       <tags>
         <tag>java</tag>
-        <tag>问题</tag>
       </tags>
   </entry>
   <entry>
@@ -25,6 +24,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[问题列表]]></title>
+    <url>%2F2018%2F11%2F19%2Fjava%2Fproblem%2F</url>
+    <content type="text"><![CDATA[问题列表 平时工作中遇到的问题以及解决办法 计算时差问题 静态Map，Set用作存储并发 获取 spring.profile.active 用户 计算时差问题StopWatch 类提供计时器 12345678910//获取并启动StopWatch sw = StopWatch.createStarted(); = &gt;StopWatch sw = new StopWatch();sw.start();//获取时间sw.getTime();orsw.getTime(TimeUnit.MINUTES); //TimeUnit表示不同时间形式 静态Map，Set用作存储并发采用 ConcurrentHashMap 替 HashMap类似 ConcurrentSkipListSet 替换 HashSet 12Map map = new ConcurrentHashMap();Set&lt;String&gt; set = new ConcurrentSkipListSet&lt;&gt;(); ConcurrentHashMap代码中可以看出，它引入了一个“分段锁”的概念，具体可以理解为把一个大的Map拆分成N个小的HashTable，根据key.hashCode()来决定把key放到哪个HashTable中。 在ConcurrentHashMap中，就是把Map分成了N个Segment，put和get的时候，都是现根据key.hashCode()算出放到哪个Segment中。 获取 spring.profile.active 用户]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>问题</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[异常]]></title>
     <url>%2F2018%2F11%2F19%2Fjava%2Fexception%2F</url>
     <content type="text"><![CDATA[异常http://blog.csdn.net/mccand1234/article/details/51579425]]></content>
@@ -34,6 +45,18 @@
       <tags>
         <tag>java</tag>
         <tag>问题</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[spring cloud]]></title>
+    <url>%2F2018%2F11%2F19%2Fspringboot%2Fspring-cloud%2F</url>
+    <content type="text"><![CDATA[spring cloud 分布式/版本化配置 服务注册和发现 选路 服务对服务呼叫 负载平衡 断路器 分布式消息传递 cloud文档 spring cloud config配置管理中心, 通过 spring.cloud.config.server.git.uri 来获取git服务上的配置文档,当然也可配置成本地获取.客户端通过HTTP可以获取对应的 配置资源 12345/&#123;application&#125;/&#123;profile&#125;[/&#123;label&#125;]/&#123;application&#125;-&#123;profile&#125;.yml/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.yml/&#123;application&#125;-&#123;profile&#125;.properties/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.properties 服务端配置123456spring: cloud: config: server: git: uri: https://github.com/spring-cloud-samples/config-repo 客户端配置客户端依赖 SpringCloud-config-Client这个jar, 如果你直接引入了 spring-cloud-starter-config 则不需要额外添加 jar bootstrap.properties 12# 指向服务端的配置中心spring.cloud.config.uri: http://myconfigserver.com]]></content>
+      <categories>
+        <category>springboot</category>
+      </categories>
+      <tags>
+        <tag>java</tag>
+        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
@@ -70,18 +93,6 @@
       <tags>
         <tag>java</tag>
         <tag>spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[spring cloud]]></title>
-    <url>%2F2018%2F11%2F19%2Fspringboot%2Fspring-cloud%2F</url>
-    <content type="text"><![CDATA[spring cloud 分布式/版本化配置 服务注册和发现 选路 服务对服务呼叫 负载平衡 断路器 分布式消息传递 cloud文档 spring cloud config配置管理中心, 通过 spring.cloud.config.server.git.uri 来获取git服务上的配置文档,当然也可配置成本地获取.客户端通过HTTP可以获取对应的 配置资源 12345/&#123;application&#125;/&#123;profile&#125;[/&#123;label&#125;]/&#123;application&#125;-&#123;profile&#125;.yml/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.yml/&#123;application&#125;-&#123;profile&#125;.properties/&#123;label&#125;/&#123;application&#125;-&#123;profile&#125;.properties 服务端配置123456spring: cloud: config: server: git: uri: https://github.com/spring-cloud-samples/config-repo 客户端配置客户端依赖 SpringCloud-config-Client这个jar, 如果你直接引入了 spring-cloud-starter-config 则不需要额外添加 jar bootstrap.properties 12# 指向服务端的配置中心spring.cloud.config.uri: http://myconfigserver.com]]></content>
-      <categories>
-        <category>springboot</category>
-      </categories>
-      <tags>
-        <tag>java</tag>
-        <tag>springcloud</tag>
       </tags>
   </entry>
   <entry>
